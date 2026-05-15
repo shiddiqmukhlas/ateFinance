@@ -1,4 +1,4 @@
-git commit -m "initial commit"# 💰 ATEFinance
+# 💰 ATEFinance
 
 **ATEFinance** is a web-based finance management & Point of Sale (POS) application designed to help small and medium businesses track income, expenses, and sales transactions — all from a clean, real-time dashboard.
 
