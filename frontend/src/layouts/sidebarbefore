@@ -1,0 +1,98 @@
+<template>
+    <div class="fixed top-0 left-0 h-full w-[15rem] bg-[#FFF] text-gray-900 shadow-lg">
+        <div class="my-8">
+        <img 
+            :src="ateFinance" 
+            alt="Logo" 
+            class="mx-auto h-16 w-auto"
+        />
+        </div>
+        <nav class="mt-10 mx-5">
+            <ul class="space-y-3">
+                <li>
+                <router-link
+                    to="/"
+                    active-class="bg-rose-500 text-white"
+                    class="flex items-center py-2 px-4 hover:bg-[#FF4473] hover:text-white transition rounded-lg"
+                >
+                    <ion-icon name="grid-outline" class="w-[19px] h-[19px]"></ion-icon>
+                    <span class="ml-3 my-3">Dashboard</span>
+                </router-link>
+                </li>
+                <li>
+                <router-link
+                    to="/keuangan/pemasukan"
+                    :class="{'bg-rose-500 text-white': isActiveKeuangan, 'hover:bg-[#FF4473] hover:text-white': !isActiveKeuangan}"
+                    class="flex items-center py-2 px-4 hover:bg-[#FF4473] hover:text-white transition rounded-lg"
+                >
+                    <ion-icon name="wallet-outline" class="w-[20px] h-[20px]"></ion-icon>
+                    <span class="ml-3 my-3">Keuangan</span>
+                </router-link>
+                </li>
+                <li>
+                <router-link
+                    to="/transaksi/pos"
+                    :class="{'bg-rose-500 text-white': isActiveTransaksi, 'hover:bg-[#FF4473] hover:text-white': !isActiveTransaksi}"
+                    class="flex items-center py-2 px-4 hover:bg-[#FF4473] hover:text-white transition rounded-lg"
+                >
+                    <ion-icon name="repeat-outline" class="w-[23px] h-[23px]"></ion-icon>
+                    <span class="ml-3 my-3">Transaksi</span>
+                </router-link>
+                </li>
+                <li>
+                <button
+                    active-class="bg-rose-500 text-white"
+                    class="flex items-center py-2 !pr-26 hover:bg-[#FF4473] hover:text-white transition rounded-lg"
+                    @click="LogoutUser"
+                >
+                    <ion-icon name="log-out-outline" class="w-[23px] h-[23px]"></ion-icon>
+                    <span class="ml-3 my-3">Logout</span>
+                </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+  </template>
+  
+  <script setup>
+    import ateFinance from '../assets/eatATEFinanceLogo.png';
+    import { useAuthStore } from "@/stores/authStores";
+    import {ref, onMounted, computed} from 'vue'
+    import customFetch from '@/api'
+    import { useRoute } from 'vue-router';
+    
+
+    const authStores = useAuthStore();
+    const { LogoutUser } = authStores;
+    const user = ref("User")
+    const route = useRoute()
+    
+
+    const getUser = async () => {
+    const {data} = await customFetch.get('/auth/getUser')
+    user.value = data.user
+    }
+
+    const isActiveKeuangan = computed(() => {
+        return route.path.startsWith('/keuangan/');
+    });
+
+    const isActiveTransaksi = computed(() => {
+        return route.path.startsWith('/transaksi/');
+    });
+
+
+    onMounted(() => {
+        getUser()
+    })
+  </script>
+
+  <style scoped>
+    ion-icon {
+        margin-left: 1rem !important;
+    }
+
+  </style>
+  
+
+  

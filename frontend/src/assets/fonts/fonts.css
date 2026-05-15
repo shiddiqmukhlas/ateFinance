@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600; /* Bold */
+    /* src: url('@/assets/fonts/Poppins-Regular.ttf') format('truetype'); */
+    src: url('@/assets/fonts/Poppins-Bold.ttf') format('truetype');
+}
